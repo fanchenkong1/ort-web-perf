@@ -715,7 +715,7 @@
                 enableCpuMemArena: false,
                 extra: {
                     session: {
-                        disable_prepacking: "1",
+                        // disable_prepacking: "1",
                         use_device_allocator_for_initializers: "1",
                         use_ort_model_bytes_directly: "1",
                         use_ort_model_bytes_for_initializers: "1",
@@ -733,6 +733,13 @@
             }
 
             switch (config.provider) {
+                case "xnnpack":
+                    opt.executionProviders = [{
+                        name: "xnnpack",
+                        deviceType: "cpu",
+                        preferredLayout: 'NHWC',
+                    }];
+                    break;
                 case "webnn":
                     opt.executionProviders = [{
                         name: "webnn",
